@@ -16,6 +16,10 @@ while True:
         print("-", e["text"])
 
     print("\n📌 Weak Concepts:", result["weak_concepts"])
+    print("\n🔍 Why this was suggested:")
+for e in result["similar_mistakes"]:
+    print(f"- Past mistake related to: {e['concept']}")
+
 
     print("\n📚 Recommended Resources:")
     for r in result["resources"]:
