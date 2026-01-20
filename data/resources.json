@@ -1,0 +1,7 @@
+[
+  {"id": 1, "text": "Binary Search works only on sorted arrays and reduces search space by half.", "concept": "Binary Search"},
+  {"id": 2, "text": "Two pointers technique is useful when scanning arrays from both ends.", "concept": "Two Pointers"},
+  {"id": 3, "text": "Always define a base case in recursion to avoid infinite calls.", "concept": "Recursion"},
+  {"id": 4, "text": "Dynamic Programming stores subproblem results to avoid recomputation.", "concept": "Dynamic Programming"},
+  {"id": 5, "text": "Binary search time complexity is O(log n).", "concept": "Binary Search"}
+]

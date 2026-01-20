@@ -1,0 +1,9 @@
+QDRANT_URL = "http://localhost:6333"
+
+LEARNING_EVENTS_COLLECTION = "learning_events"
+LEARNING_RESOURCES_COLLECTION = "learning_resources"
+
+EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
+
+TOP_K_MEMORY = 3
+TOP_K_RESOURCES = 3
