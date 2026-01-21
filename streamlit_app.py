@@ -1,7 +1,7 @@
 import streamlit as st
 
-from agents.planner_agent import handle_student_input
-from agents.retrieval_agent import store_new_resource, store_feedback
+from mas_learning_agent.agents.planner_agent import handle_student_input
+from mas_learning_agent.agents.retrieval_agent import store_feedback, store_new_resource
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(

@@ -1,6 +1,6 @@
 import streamlit as st
 from sentence_transformers import SentenceTransformer
-from config import EMBEDDING_MODEL_NAME
+from mas_learning_agent.config import EMBEDDING_MODEL_NAME
 
 @st.cache_resource
 def load_model():

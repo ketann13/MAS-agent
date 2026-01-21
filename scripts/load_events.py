@@ -1,7 +1,7 @@
 import uuid
-from embeddings import get_embedding
-from qdrant_db.client import get_qdrant_client
-from config import LEARNING_EVENTS_COLLECTION
+from mas_learning_agent.embeddings import get_embedding
+from mas_learning_agent.qdrant_db.client import get_qdrant_client
+from mas_learning_agent.config import LEARNING_EVENTS_COLLECTION
 
 client = get_qdrant_client()
 
