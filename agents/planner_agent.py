@@ -2,6 +2,7 @@ from agents.memory_agent import store_event, get_similar_events
 from agents.pattern_agent import detect_weak_concepts
 from agents.retrieval_agent import get_resources_for_concept
 from agents.recommendation_agent import generate_recommendation
+from agents.llm_agent import generate_explanation
 
 
 
@@ -63,5 +64,15 @@ def handle_student_input(text, concept, correct=False):
         "Retrieval Agent",
         "Recommendation Agent",
     ]
+    ai_text = generate_explanation(
+    text,
+    weak_concepts,
+    resources,
+    task_type
+     )
+
+    recommendation["ai_explanation"] = ai_text
+
 
     return recommendation
+
