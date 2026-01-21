@@ -1,5 +1,5 @@
 import requests
-from ..config import GEMINI_API_KEY
+from mas_learning_agent.config import GEMINI_API_KEY
 
 
 GEMINI_URL = (
