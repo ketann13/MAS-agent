@@ -2,14 +2,15 @@ import streamlit as st
 from agents.planner_agent import handle_student_input
 
 st.set_page_config(page_title="AI Learning Memory Agent", layout="centered")
+st.info("⏳ Initializing AI models... please wait 20–30 seconds on first load.")
 
-st.title("🎓 AI Learning Memory Agent")
+st.title("AI Learning Memory Agent")
 st.write("Personalized AI tutor with long-term memory using Qdrant")
 
 st.markdown("---")
 
 # Input Section
-st.subheader("📝 Enter Your Learning Issue")
+st.subheader("Enter Your Learning Issue")
 
 text = st.text_area("Describe your doubt or mistake:")
 
@@ -27,7 +28,7 @@ if submit:
         st.markdown("---")
 
         # Similar Mistakes
-        st.subheader("🧠 Similar Past Mistakes (From Memory)")
+        st.subheader("Similar Past Mistakes (From Memory)")
         if result["similar_mistakes"]:
             for e in result["similar_mistakes"]:
                 st.write("•", e["text"])
@@ -35,7 +36,7 @@ if submit:
             st.write("No similar past mistakes found.")
 
         # Weak Concepts
-        st.subheader("📌 Detected Weak Concepts")
+        st.subheader("Detected Weak Concepts")
         if result["weak_concepts"]:
             for c in result["weak_concepts"]:
                 st.write("•", c)
@@ -43,7 +44,7 @@ if submit:
             st.write("No weak concepts detected yet.")
 
         # Resources
-        st.subheader("📚 Recommended Learning Resources")
+        st.subheader("Recommended Learning Resources")
         if result["resources"]:
             for r in result["resources"]:
                 st.write("•", r["text"])
@@ -51,13 +52,31 @@ if submit:
             st.write("No resources found.")
 
         # Advice
-        st.subheader("🎯 Personalized Advice")
+        st.subheader("Personalized Advice")
         for a in result["advice"]:
             st.success(a)
+            
+            
+        st.markdown("---")
+        st.subheader("🧠 Help the system learn")
+
+        feedback = st.radio(
+            "Was this recommendation helpful?",
+            ["Yes, it helped", "No, it didn’t help"],
+            horizontal=True
+        )
+
+        if feedback == "Yes, it helped":
+            from agents.retrieval_agent import store_new_resource
+
+            auto_text = f"Helpful explanation related to {concept}: {text}"
+            store_new_resource(auto_text, concept)
+
+            st.success("Thanks! This knowledge has been added to the system memory.")
 
         # Traceability (VERY GOOD FOR JUDGES)
         st.markdown("---")
-        st.subheader("🔍 Why this recommendation?")
+        st.subheader("Why this recommendation?")
         st.write("Recommendations are based on:")
         for e in result["similar_mistakes"]:
             st.write(f"- Similar past mistake related to **{e['concept']}**")

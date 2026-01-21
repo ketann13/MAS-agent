@@ -5,6 +5,7 @@ from agents.recommendation_agent import generate_recommendation
 
 
 def handle_student_input(text, concept, correct=False):
+    concept = concept.strip().lower()
     store_event(text, concept, correct)
 
     similar_events = get_similar_events(text)
@@ -21,4 +22,7 @@ def handle_student_input(text, concept, correct=False):
         similar_events
     )
 
+    recommendation["original_input"] = text
+    recommendation["concept"] = concept
     return recommendation
+    

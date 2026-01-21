@@ -3,5 +3,44 @@
   {"id": 2, "text": "Two pointers technique is useful when scanning arrays from both ends.", "concept": "Two Pointers"},
   {"id": 3, "text": "Always define a base case in recursion to avoid infinite calls.", "concept": "Recursion"},
   {"id": 4, "text": "Dynamic Programming stores subproblem results to avoid recomputation.", "concept": "Dynamic Programming"},
-  {"id": 5, "text": "Binary search time complexity is O(log n).", "concept": "Binary Search"}
+  {"id": 5, "text": "Binary search time complexity is O(log n).", "concept": "Binary Search"},
+  {"id": 6,"text": "UDP is a connectionless protocol that sends data without establishing a session, making it faster but unreliable.", "concept": "computer networks"},
+  {"id": 7,"text": "TCP provides reliable, ordered, and error-checked delivery of data using acknowledgements and retransmissions.","concept": "computer networks"},
+{
+  "id": 8,
+  "text": "UDP is used in real-time applications like video streaming and gaming where speed is more important than reliability.",
+  "concept": "computer networks"
+},
+{
+  "id": 9,
+  "text": "TCP uses three-way handshake (SYN, SYN-ACK, ACK) to establish a reliable connection.",
+  "concept": "computer networks"
+},
+{
+  "id": 10,
+  "text": "UDP does not guarantee delivery, order, or duplication protection.",
+  "concept": "computer networks"
+},
+{
+  "id": 11,
+  "text": "A process is a program in execution, while a thread is the smallest unit of CPU scheduling.",
+  "concept": "operating systems"
+},
+{
+  "id": 12,
+  "text": "Deadlock occurs when processes wait indefinitely for resources held by each other.",
+  "concept": "operating systems"
+},
+{
+  "id": 13,
+  "text": "Indexes improve read performance but slow down writes due to maintenance overhead.",
+  "concept": "databases"
+},
+{
+  "id": 14,
+  "text": "Encapsulation hides internal data and exposes only necessary functionality.",
+  "concept": "oops"
+}
+
+
 ]
