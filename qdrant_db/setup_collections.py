@@ -1,6 +1,6 @@
 from qdrant_client.models import VectorParams, Distance
-from mas_learning_agent.qdrant_db.client import get_qdrant_client
-from mas_learning_agent.config import (
+from qdrant_db.client import get_qdrant_client
+from config import (
     LEARNING_EVENTS_COLLECTION,
     LEARNING_RESOURCES_COLLECTION,
 )

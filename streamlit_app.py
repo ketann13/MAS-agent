@@ -1,10 +1,4 @@
 import streamlit as st
-import sys
-import os
-
-# Add repository root to path so `mas_learning_agent` package imports resolve
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from agents.planner_agent import handle_student_input
 from agents.retrieval_agent import store_feedback, store_new_resource
 from qdrant_db.client import get_qdrant_client
