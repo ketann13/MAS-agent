@@ -1,6 +1,6 @@
-from embeddings import get_embedding
-from qdrant_db.client import get_qdrant_client
-from config import LEARNING_RESOURCES_COLLECTION, TOP_K_RESOURCES
+from ..embeddings import get_embedding
+from ..qdrant_db.client import get_qdrant_client
+from ..config import LEARNING_RESOURCES_COLLECTION, TOP_K_RESOURCES
 import uuid
 
 
