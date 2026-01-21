@@ -2,12 +2,12 @@ import streamlit as st
 import sys
 import os
 
-# Add current directory to path for direct folder-based imports
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Add parent directory to path for package imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from agents.planner_agent import handle_student_input
-from agents.retrieval_agent import store_feedback, store_new_resource
-from qdrant_db.client import get_qdrant_client
+from mas_learning_agent.agents.planner_agent import handle_student_input
+from mas_learning_agent.agents.retrieval_agent import store_feedback, store_new_resource
+from mas_learning_agent.qdrant_db.client import get_qdrant_client
 
 
 # ---------------- PAGE CONFIG ----------------
