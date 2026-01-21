@@ -1,5 +1,3 @@
-QDRANT_URL = "http://localhost:6333"
-GEMINI_API_KEY = "AIzaSyDiT1mYdwisiKcvwDi775H3NkARNZuHsz0"
 LEARNING_EVENTS_COLLECTION = "learning_events"
 LEARNING_RESOURCES_COLLECTION = "learning_resources"
 

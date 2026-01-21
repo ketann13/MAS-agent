@@ -5,74 +5,78 @@ from agents.recommendation_agent import generate_recommendation
 from agents.llm_agent import generate_explanation
 
 
+def normalize_concept(concept):
+    concept = concept.lower().strip()
+
+    mapping = {
+        "dsa": "data structures and algorithms",
+        "data structure and algo": "data structures and algorithms",
+        "data sturecture and algo": "data structures and algorithms",
+        "computer networks": "computer networks",
+        "comp networks": "computer networks",
+    }
+
+    return mapping.get(concept, concept)
+
+
 
 def handle_student_input(text, concept, correct=False):
+
     concept = concept.strip().lower()
 
+    # ---- MEMORY AGENT ----
     store_event(text, concept, correct)
-
     similar_events = get_similar_events(text)
 
-    weak_concepts = detect_weak_concepts(similar_events)
+    # ---- PATTERN AGENT ----
+    weak_concepts = detect_weak_concepts(similar_events, concept)
 
-    # -------- TASK ROUTING (MAS ORCHESTRATION) --------
-    task_type = "practice"
-
-    if len(similar_events) >= 2:
+    # ---- TASK ROUTING (MAS ORCHESTRATOR) ----
+    if len(similar_events) >= 3:
         task_type = "remediation"
     elif len(similar_events) == 0:
         task_type = "onboarding"
+    else:
+        task_type = "practice"
 
-    # -------- RESOURCE RETRIEVAL --------
-    resources = []
+    # ---- RETRIEVAL AGENT (OPTIONAL SUPPORT) ----
+    # Always prioritize current concept
+    resources = get_resources_for_concept(concept)
+
+    # Add weak concept resources if needed
     for c in weak_concepts:
+       if c != concept:
         resources.extend(get_resources_for_concept(c))
 
-    # -------- RECOMMENDATION --------
-    recommendation = generate_recommendation(
+
+    # ---- RECOMMENDATION AGENT ----
+    advice = generate_recommendation(
         weak_concepts,
         resources,
         similar_events
     )
 
-    # -------- TASK-AWARE ADVICE --------
-    advice = []
-
-    if task_type == "remediation":
-        for c in weak_concepts:
-            advice.append(
-                f"You repeatedly struggle with {c}. Revise fundamentals and solve easy problems first."
-            )
-
-    elif task_type == "onboarding":
-        advice.append(
-            "This seems like a new topic for you. Start with beginner explanations and examples."
-        )
-
-    else:
-        advice.append("Practice similar questions again.")
-
-    recommendation["advice"] = advice
-
-    # -------- EXPLANATION METADATA --------
-    recommendation["original_input"] = text
-    recommendation["concept"] = concept
-    recommendation["task_type"] = task_type
-    recommendation["agents_used"] = [
-        "Memory Agent",
-        "Pattern Agent",
-        "Retrieval Agent",
-        "Recommendation Agent",
-    ]
+    # ---- LLM TUTOR AGENT ----
     ai_text = generate_explanation(
     text,
     weak_concepts,
     resources,
     task_type
-     )
-
-    recommendation["ai_explanation"] = ai_text
+)
 
 
-    return recommendation
-
+    return {
+        "similar_mistakes": similar_events,
+        "weak_concepts": weak_concepts,
+        "task_type": task_type,
+        "resources": resources,
+        "advice": advice,
+        "ai_explanation": ai_text,
+        "agents_used": [
+            "Memory Agent",
+            "Pattern Agent",
+            "Retrieval Agent",
+            "Recommendation Agent",
+            "LLM Tutor Agent"
+        ]
+    }

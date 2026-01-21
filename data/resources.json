@@ -1,46 +1,158 @@
 [
-  {"id": 1, "text": "Binary Search works only on sorted arrays and reduces search space by half.", "concept": "Binary Search"},
-  {"id": 2, "text": "Two pointers technique is useful when scanning arrays from both ends.", "concept": "Two Pointers"},
-  {"id": 3, "text": "Always define a base case in recursion to avoid infinite calls.", "concept": "Recursion"},
-  {"id": 4, "text": "Dynamic Programming stores subproblem results to avoid recomputation.", "concept": "Dynamic Programming"},
-  {"id": 5, "text": "Binary search time complexity is O(log n).", "concept": "Binary Search"},
-  {"id": 6,"text": "UDP is a connectionless protocol that sends data without establishing a session, making it faster but unreliable.", "concept": "computer networks"},
-  {"id": 7,"text": "TCP provides reliable, ordered, and error-checked delivery of data using acknowledgements and retransmissions.","concept": "computer networks"},
-{
-  "id": 8,
-  "text": "UDP is used in real-time applications like video streaming and gaming where speed is more important than reliability.",
-  "concept": "computer networks"
-},
-{
-  "id": 9,
-  "text": "TCP uses three-way handshake (SYN, SYN-ACK, ACK) to establish a reliable connection.",
-  "concept": "computer networks"
-},
-{
-  "id": 10,
-  "text": "UDP does not guarantee delivery, order, or duplication protection.",
-  "concept": "computer networks"
-},
-{
-  "id": 11,
-  "text": "A process is a program in execution, while a thread is the smallest unit of CPU scheduling.",
-  "concept": "operating systems"
-},
-{
-  "id": 12,
-  "text": "Deadlock occurs when processes wait indefinitely for resources held by each other.",
-  "concept": "operating systems"
-},
-{
-  "id": 13,
-  "text": "Indexes improve read performance but slow down writes due to maintenance overhead.",
-  "concept": "databases"
-},
-{
-  "id": 14,
-  "text": "Encapsulation hides internal data and exposes only necessary functionality.",
-  "concept": "oops"
-}
+  {
+    "id": 1,
+    "text": "Binary Search works only on sorted arrays and reduces the search space by half each step.",
+    "concept": "binary search",
+    "topic": "dsa",
+    "type": "definition",
+    "level": "beginner"
+  },
+  {
+    "id": 2,
+    "text": "Binary Search has time complexity O(log n) because the array is divided into two halves every step.",
+    "concept": "binary search",
+    "topic": "dsa",
+    "type": "exam",
+    "level": "beginner"
+  },
+  {
+    "id": 3,
+    "text": "Two pointers technique is useful when scanning arrays or strings from both ends efficiently.",
+    "concept": "two pointers",
+    "topic": "dsa",
+    "type": "definition",
+    "level": "beginner"
+  },
+  {
+    "id": 4,
+    "text": "Always define a base case in recursion to avoid infinite recursive calls.",
+    "concept": "recursion",
+    "topic": "dsa",
+    "type": "tip",
+    "level": "beginner"
+  },
+  {
+    "id": 5,
+    "text": "Dynamic Programming stores results of overlapping subproblems to avoid recomputation.",
+    "concept": "dynamic programming",
+    "topic": "dsa",
+    "type": "definition",
+    "level": "beginner"
+  },
 
+  {
+    "id": 101,
+    "text": "DNS translates human-readable domain names like google.com into IP addresses required for routing.",
+    "concept": "dns",
+    "topic": "computer networks",
+    "type": "definition",
+    "level": "beginner"
+  },
+  {
+    "id": 102,
+    "text": "DNS lookup happens before any HTTP request so the browser knows which server to contact.",
+    "concept": "dns",
+    "topic": "computer networks",
+    "type": "flow",
+    "level": "beginner"
+  },
+  {
+    "id": 103,
+    "text": "HTTP is a request-response protocol used by browsers and servers to transfer web pages.",
+    "concept": "http",
+    "topic": "computer networks",
+    "type": "definition",
+    "level": "beginner"
+  },
+  {
+    "id": 104,
+    "text": "In HTTP, the client sends a request and the server replies with a response containing status codes and data.",
+    "concept": "http",
+    "topic": "computer networks",
+    "type": "flow",
+    "level": "beginner"
+  },
+  {
+    "id": 105,
+    "text": "HTTPS is HTTP with encryption using TLS to protect data like passwords and card details.",
+    "concept": "https",
+    "topic": "computer networks",
+    "type": "definition",
+    "level": "beginner"
+  },
+  {
+    "id": 106,
+    "text": "TCP establishes connection using three-way handshake: SYN, SYN-ACK, and ACK.",
+    "concept": "tcp",
+    "topic": "computer networks",
+    "type": "flow",
+    "level": "beginner"
+  },
+  {
+    "id": 107,
+    "text": "TCP provides reliable, ordered, and error-checked delivery using acknowledgements and retransmissions.",
+    "concept": "tcp",
+    "topic": "computer networks",
+    "type": "definition",
+    "level": "beginner"
+  },
+  {
+    "id": 108,
+    "text": "UDP is connectionless and does not guarantee delivery, order, or duplication protection.",
+    "concept": "udp",
+    "topic": "computer networks",
+    "type": "definition",
+    "level": "beginner"
+  },
+  {
+    "id": 109,
+    "text": "UDP is used in video streaming and online gaming where speed is more important than reliability.",
+    "concept": "udp",
+    "topic": "computer networks",
+    "type": "example",
+    "level": "beginner"
+  },
 
+  {
+    "id": 201,
+    "text": "A process is an independent program in execution with its own memory space.",
+    "concept": "process",
+    "topic": "operating systems",
+    "type": "definition",
+    "level": "beginner"
+  },
+  {
+    "id": 202,
+    "text": "A thread is the smallest unit of CPU execution and shares memory with other threads of the same process.",
+    "concept": "thread",
+    "topic": "operating systems",
+    "type": "definition",
+    "level": "beginner"
+  },
+  {
+    "id": 203,
+    "text": "Deadlock occurs when processes wait indefinitely for resources held by each other.",
+    "concept": "deadlock",
+    "topic": "operating systems",
+    "type": "definition",
+    "level": "beginner"
+  },
+
+  {
+    "id": 301,
+    "text": "Indexes improve read performance by allowing faster search but slow down write operations.",
+    "concept": "indexing",
+    "topic": "databases",
+    "type": "definition",
+    "level": "beginner"
+  },
+
+  {
+    "id": 401,
+    "text": "Encapsulation hides internal data and exposes only necessary functionality through methods.",
+    "concept": "encapsulation",
+    "topic": "oops",
+    "type": "definition",
+    "level": "beginner"
+  }
 ]
