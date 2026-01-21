@@ -1,7 +1,7 @@
 import os
 from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance
-from mas_learning_agent.config import LEARNING_EVENTS_COLLECTION, LEARNING_RESOURCES_COLLECTION
+from ..config import LEARNING_EVENTS_COLLECTION, LEARNING_RESOURCES_COLLECTION
 
 VECTOR_SIZE = 384
 

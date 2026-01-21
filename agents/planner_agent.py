@@ -1,8 +1,8 @@
-from mas_learning_agent.agents.memory_agent import store_event, get_similar_events
-from mas_learning_agent.agents.pattern_agent import detect_weak_concepts
-from mas_learning_agent.agents.retrieval_agent import get_resources_for_concept
-from mas_learning_agent.agents.recommendation_agent import generate_recommendation
-from mas_learning_agent.agents.llm_agent import generate_explanation
+from .memory_agent import store_event, get_similar_events
+from .pattern_agent import detect_weak_concepts
+from .retrieval_agent import get_resources_for_concept
+from .recommendation_agent import generate_recommendation
+from .llm_agent import generate_explanation
 
 
 def normalize_concept(concept):
