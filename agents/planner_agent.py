@@ -26,10 +26,10 @@ def handle_student_input(text, concept, correct=False):
 
     # ---- MEMORY AGENT ----
     store_event(text, concept, correct)
-    similar_events = get_similar_events(text)
+    similar_events = get_similar_events(text) or []
 
     # ---- PATTERN AGENT ----
-    weak_concepts = detect_weak_concepts(similar_events, concept)
+    weak_concepts = detect_weak_concepts(similar_events, concept) or []
 
     # ---- TASK ROUTING (MAS ORCHESTRATOR) ----
     if len(similar_events) >= 3:
@@ -41,12 +41,13 @@ def handle_student_input(text, concept, correct=False):
 
     # ---- RETRIEVAL AGENT (OPTIONAL SUPPORT) ----
     # Always prioritize current concept
-    resources = get_resources_for_concept(concept)
+    resources = get_resources_for_concept(concept) or []
 
     # Add weak concept resources if needed
     for c in weak_concepts:
-       if c != concept:
-        resources.extend(get_resources_for_concept(c))
+        if c != concept:
+            additional_resources = get_resources_for_concept(c) or []
+            resources.extend(additional_resources)
 
 
     # ---- RECOMMENDATION AGENT ----

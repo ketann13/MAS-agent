@@ -3,29 +3,38 @@ from qdrant_db.client import get_qdrant_client
 from config import LEARNING_RESOURCES_COLLECTION, TOP_K_RESOURCES
 import uuid
 
-client = get_qdrant_client()
-
 
 def get_resources_for_concept(concept_text):
-    results = client.query_points(
-        collection_name=LEARNING_RESOURCES_COLLECTION,
-        query=get_embedding(concept_text),
-        limit=TOP_K_RESOURCES,
-        with_payload=True
-    )
+    client = get_qdrant_client()
+    if client is None:
+        return []
+    
+    try:
+        results = client.query_points(
+            collection_name=LEARNING_RESOURCES_COLLECTION,
+            query=get_embedding(concept_text),
+            limit=TOP_K_RESOURCES,
+            with_payload=True
+        )
 
-    # remove duplicate texts
-    seen = set()
-    unique = []
-    for p in results.points:
-        if p.payload["text"] not in seen:
-            unique.append(p.payload)
-            seen.add(p.payload["text"])
+        # remove duplicate texts
+        seen = set()
+        unique = []
+        for p in results.points:
+            if p.payload["text"] not in seen:
+                unique.append(p.payload)
+                seen.add(p.payload["text"])
 
-    return unique
+        return unique
+    except Exception:
+        return []
 
 
 def store_new_resource(text, concept):
+    client = get_qdrant_client()
+    if client is None:
+        return
+    
     point = {
         "id": str(uuid.uuid4()),
         "vector": get_embedding(text),
@@ -43,6 +52,10 @@ def store_new_resource(text, concept):
 
 
 def store_feedback(text, concept, helpful):
+    client = get_qdrant_client()
+    if client is None:
+        return
+    
     point = {
         "id": str(uuid.uuid4()),
         "vector": get_embedding(text),

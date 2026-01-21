@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from agents.planner_agent import handle_student_input
 from agents.retrieval_agent import store_feedback, store_new_resource
+from qdrant_db.client import get_qdrant_client
 
 
 # ---------------- PAGE CONFIG ----------------
@@ -15,6 +16,11 @@ st.set_page_config(
     layout="centered",
     page_icon="🎓"
 )
+
+# ---------------- QDRANT CONNECTION CHECK ----------------
+qdrant_client = get_qdrant_client()
+if qdrant_client is None:
+    st.warning("⚠️ Memory database (Qdrant) is offline. The app will continue to work but without long-term memory features.")
 
 # ---------------- HEADER ----------------
 st.markdown("""
