@@ -1,0 +1,31 @@
+# ===== Virtual Environments =====
+venv/
+.env/
+.env.*
+
+# ===== Python Cache =====
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ===== Streamlit Secrets =====
+.streamlit/secrets.toml
+
+# ===== VS Code =====
+.vscode/
+
+# ===== OS Files =====
+.DS_Store
+Thumbs.db
+
+# ===== Logs =====
+*.log
+
+# ===== Jupyter =====
+.ipynb_checkpoints/
+
+# ===== Build / Dist =====
+build/
+dist/
+*.egg-info/

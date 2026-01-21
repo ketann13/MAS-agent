@@ -1,7 +1,12 @@
+import os
+
 LEARNING_EVENTS_COLLECTION = "learning_events"
 LEARNING_RESOURCES_COLLECTION = "learning_resources"
-GEMINI_API_KEY = "AIzaSyC3UVSTaRozLLRFplgboFeLDWfj0oytmQI"
+
 EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
 
 TOP_K_MEMORY = 3
 TOP_K_RESOURCES = 3
+
+# Read from environment instead of hardcoding
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
