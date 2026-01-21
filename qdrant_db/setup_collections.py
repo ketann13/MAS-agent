@@ -1,38 +1,36 @@
+from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance
-from qdrant_db.client import get_qdrant_client
 from config import (
     LEARNING_EVENTS_COLLECTION,
     LEARNING_RESOURCES_COLLECTION,
+    EMBEDDING_MODEL_NAME
 )
+from sentence_transformers import SentenceTransformer
 
-VECTOR_SIZE = 384
+# Load model just to get vector size
+model = SentenceTransformer("all-MiniLM-L6-v2")
+VECTOR_SIZE = model.get_sentence_embedding_dimension()
+
+client = QdrantClient(host="localhost", port=6333)
 
 
-def setup():
-    client = get_qdrant_client()
+def create_collection(name):
+    existing = [c.name for c in client.get_collections().collections]
 
-    client.recreate_collection(
-        collection_name=LEARNING_EVENTS_COLLECTION,
-        vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE),
+    if name in existing:
+        print(f"✅ Collection already exists: {name}")
+        return
+
+    client.create_collection(
+        collection_name=name,
+        vectors_config=VectorParams(
+            size=VECTOR_SIZE,
+            distance=Distance.COSINE
+        )
     )
-
-    client.recreate_collection(
-        collection_name=LEARNING_RESOURCES_COLLECTION,
-        vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE),
-    )
-    client.recreate_collection(
-    collection_name="concept_stats",
-    vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE),
-)
-
-    client.recreate_collection(
-    collection_name="feedback_logs",
-    vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE),
-)
-
-
-    print("✅ Qdrant collections created successfully")
+    print(f"🆕 Created collection: {name}")
 
 
 if __name__ == "__main__":
-    setup()
+    create_collection(LEARNING_EVENTS_COLLECTION)
+    create_collection(LEARNING_RESOURCES_COLLECTION)

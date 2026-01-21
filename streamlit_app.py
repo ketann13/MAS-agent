@@ -1,8 +1,7 @@
 import streamlit as st
-from agents.planner_agent import handle_student_input
-from agents.retrieval_agent import store_feedback, store_new_resource
-from qdrant_db.client import get_qdrant_client
 
+from agents.planner_agent import handle_student_input
+from agents.retrieval_agent import store_new_resource, store_feedback
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
@@ -10,11 +9,6 @@ st.set_page_config(
     layout="centered",
     page_icon="🎓"
 )
-
-# ---------------- QDRANT CONNECTION CHECK ----------------
-qdrant_client = get_qdrant_client()
-if qdrant_client is None:
-    st.warning("⚠️ Memory database (Qdrant) is offline. The app will continue to work but without long-term memory features.")
 
 # ---------------- HEADER ----------------
 st.markdown("""
