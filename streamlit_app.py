@@ -2,11 +2,11 @@ import streamlit as st
 import sys
 import os
 
-# Add the parent directory to the path so we can import mas_learning_agent
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add current directory to path for direct folder-based imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from mas_learning_agent.agents.planner_agent import handle_student_input
-from mas_learning_agent.agents.retrieval_agent import store_feedback, store_new_resource
+from agents.planner_agent import handle_student_input
+from agents.retrieval_agent import store_feedback, store_new_resource
 
 
 # ---------------- PAGE CONFIG ----------------
