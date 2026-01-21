@@ -7,6 +7,7 @@ client = get_qdrant_client()
 
 
 def store_event(text, concept, correct):
+    store_concept_stat(concept)
     point = {
         "id": str(uuid.uuid4()),
         "vector": get_embedding(text),
@@ -14,7 +15,7 @@ def store_event(text, concept, correct):
             "text": text,
             "concept": concept,
             "correct": correct
-        }
+        } 
     }
     client.upsert(collection_name=LEARNING_EVENTS_COLLECTION, points=[point])
 
@@ -28,3 +29,11 @@ def get_similar_events(query_text):
     )
 
     return [p.payload for p in results.points]
+
+def store_concept_stat(concept):
+    point = {
+        "id": str(uuid.uuid4()),
+        "vector": get_embedding(concept),
+        "payload": {"concept": concept}
+    }
+    client.upsert(collection_name="concept_stats", points=[point])

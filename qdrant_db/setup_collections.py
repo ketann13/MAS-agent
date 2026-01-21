@@ -20,6 +20,16 @@ def setup():
         collection_name=LEARNING_RESOURCES_COLLECTION,
         vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE),
     )
+    client.recreate_collection(
+    collection_name="concept_stats",
+    vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE),
+)
+
+    client.recreate_collection(
+    collection_name="feedback_logs",
+    vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE),
+)
+
 
     print("✅ Qdrant collections created successfully")
 

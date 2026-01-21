@@ -14,7 +14,16 @@ def get_resources_for_concept(concept_text):
         with_payload=True
     )
 
-    return [p.payload for p in results.points]
+    # remove duplicate texts
+    seen = set()
+    unique = []
+    for p in results.points:
+        if p.payload["text"] not in seen:
+            unique.append(p.payload)
+            seen.add(p.payload["text"])
+
+    return unique
+
 
 def store_new_resource(text, concept):
     point = {
@@ -31,3 +40,16 @@ def store_new_resource(text, concept):
         collection_name=LEARNING_RESOURCES_COLLECTION,
         points=[point]
     )
+
+
+def store_feedback(text, concept, helpful):
+    point = {
+        "id": str(uuid.uuid4()),
+        "vector": get_embedding(text),
+        "payload": {
+            "concept": concept,
+            "helpful": helpful
+        }
+    }
+
+    client.upsert(collection_name="feedback_logs", points=[point])
