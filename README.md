@@ -1,70 +1,134 @@
-# RecallAI – Multi-Agent Personalized Learning Assistant
+# RecallAI — Multi-Agent Personalized Learning Assistant
 
-RecallAI is an AI-powered personalized tutor with long-term memory. It uses a multi-agent workflow and Qdrant-backed retrieval to provide tailored learning guidance that improves over time.
+RecallAI is an AI-powered personalized learning system that helps students retain concepts by learning from their past mistakes and adapting future explanations and learning strategies accordingly. It combines Multi-Agent Systems, Vector Memory (Qdrant), and LLM reasoning (Gemini) to deliver adaptive education across multiple subjects.
 
-## Project Overview
-RecallAI captures learning mistakes and queries, stores them as embeddings, and retrieves relevant past events and resources to generate targeted recommendations and AI tutor explanations.
+## 🚀 Key Features
+- ✅ Long-term semantic memory using Qdrant Vector Database
+- ✅ Multi-Agent architecture with clear agent responsibilities
+- ✅ Detects repeated weak concepts automatically
+- ✅ Dynamic learning strategy selection:
+  - Onboarding (new topic)
+  - Practice (occasional mistakes)
+  - Remediation (repeated struggle)
+- ✅ Personalized explanations using Gemini LLM
+- ✅ Transparent AI decision-making
+- ✅ Works across subjects: CS, Mathematics, Theory, etc.
 
-## Problem Statement
-Learners often repeat mistakes because prior errors and context are not remembered. RecallAI solves this by maintaining long-term memory of learning events and using a multi-agent reasoning pipeline to personalize feedback and resources.
+## 🎯 Problem Statement
+Students frequently forget concepts — not only in programming, but also in subjects like mathematics, operating systems, networking, and theory-based courses.
 
-## Features
-- Multi-agent pipeline: memory, pattern detection, retrieval, recommendation, and AI tutor agents
-- Long-term vector memory with Qdrant
-- Personalized remediation strategy based on user history
-- Streamlit UI with transparent agent reasoning and feedback loop
-- Feedback-driven learning to improve future guidance
+Most learning platforms:
+- Treat all students the same
+- Do not track individual learning behavior
+- Do not adapt based on repeated mistakes
 
-## System Architecture (Multi-Agent)
-1. **Memory Agent**: stores learning events and retrieves similar mistakes.
-2. **Pattern Agent**: detects weak concepts from history and current input.
-3. **Retrieval Agent**: fetches related resources from Qdrant.
-4. **Recommendation Agent**: generates learning strategy and advice.
-5. **LLM Tutor Agent**: provides natural-language explanations.
+As a result, students repeatedly struggle with the same concepts without receiving targeted remediation.
 
-## Tech Stack
-- **Frontend**: Streamlit
-- **Vector DB**: Qdrant
-- **Embeddings**: Sentence Transformers
-- **LLM**: Google Gemini (via API)
-- **Language**: Python
+**RecallAI solves this by:**
+- Tracking individual learning mistakes
+- Detecting recurring weak concepts
+- Selecting appropriate learning strategies
+- Providing personalized AI explanations
 
-## How It Works (Step-by-step workflow)
-1. User submits a learning issue and concept.
-2. Memory Agent stores the event and retrieves similar past mistakes.
-3. Pattern Agent identifies weak concepts.
-4. Retrieval Agent gathers related resources.
-5. Recommendation Agent chooses a learning strategy and advice.
-6. LLM Tutor Agent generates a plain-language explanation.
-7. User feedback is stored to improve future results.
+## 🏗️ System Architecture (Multi-Agent)
+RecallAI follows a modular multi-agent design:
 
-## Local Setup Instructions
-1. Create and activate a virtual environment.
-2. Install dependencies:
-	- `pip install -r requirements.txt`
-3. Configure environment variables (see below).
-4. Start the app:
-	- `python -m streamlit run app/streamlit_app.py`
+| Agent | Responsibility |
+|---|---|
+| Planner Agent | Orchestrates entire workflow |
+| Memory Agent | Stores and retrieves learning events from Qdrant |
+| Pattern Agent | Detects repeated weak concepts |
+| Retrieval Agent | Fetches relevant learning resources |
+| Recommendation Agent | Generates learning advice |
+| LLM Tutor Agent | Generates explanations using Gemini API |
+| Streamlit UI | User interaction interface |
 
-## Environment Variables
-Create a `.env` file (do not commit) with:
-- `QDRANT_URL`
-- `QDRANT_API_KEY`
-- `GEMINI_API_KEY`
-- `GEMINI_MODEL` (optional)
+## 🔄 Workflow
+1. Student enters doubt and concept
+2. Memory Agent stores learning event in Qdrant
+3. Similar past mistakes are retrieved using semantic search
+4. Pattern Agent detects weak concepts
+5. Planner Agent selects learning strategy
+6. Recommendation Agent suggests actions
+7. LLM Tutor Agent generates personalized explanation
+8. UI displays results with transparency
 
-## Project Structure
-- app/streamlit_app.py: Streamlit entry
-- src/mas_learning_agent/: application package
-  - config.py: constants & settings
-  - embeddings.py: embedding model loader
-  - agents/: planner, memory, pattern, retrieval, recommendation agents
-  - qdrant_db/: Qdrant client and collection setup
-  - services/: event logging and evaluation
-  - utils/: text utilities
-- data/: sample resources and events
-- scripts/: loaders for resources and events
-- .streamlit/: Streamlit config
+## 🧠 Memory System (Qdrant)
+Each learning event is:
+- Converted into embeddings using Sentence Transformers
+- Stored in Qdrant as a vector with metadata
+- Queried using similarity search
 
-## Author
-- Ketan N.
+This enables RecallAI to remember conceptual mistakes, not just keywords.
+
+## 🛠️ Tech Stack
+- Frontend: Streamlit
+- Backend: Python
+- Vector Database: Qdrant (Local or Cloud)
+- Embeddings: SentenceTransformers (MiniLM)
+- LLM: Google Gemini API
+- Architecture: Multi-Agent System
+
+## ⚙️ Local Setup Instructions
+1. Clone Repository
+  ```bash
+  git clone https://github.com/your-username/RecallAI.git
+  cd RecallAI
+  ```
+2. Create Virtual Environment
+  ```bash
+  python -m venv .venv
+  source .venv/bin/activate   # Mac/Linux
+  .venv\Scripts\activate      # Windows
+  ```
+3. Install Dependencies
+  ```bash
+  pip install -r requirements.txt
+  ```
+4. Setup Environment Variables
+
+  Create a .env file (do NOT commit to GitHub):
+  ```env
+  GEMINI_API_KEY=your_api_key
+  QDRANT_URL=your_qdrant_url
+  QDRANT_API_KEY=your_qdrant_key
+  ```
+5. Setup Qdrant Collections
+  ```bash
+  python src/mas_learning_agent/qdrant_db/setup_collections.py
+  ```
+6. Run Application
+  ```bash
+  streamlit run app/streamlit_app.py
+  ```
+
+Open browser at:
+👉 http://localhost:8501
+
+## 📊 Subjects Supported
+RecallAI is designed to be subject-agnostic:
+- 💻 Computer Science (DSA, Networks, OS, DBMS)
+- ➗ Mathematics
+- 📘 Theory Subjects
+- 📚 Any concept-based learning domain
+
+Only resources need to be updated for new subjects.
+
+## 📈 Future Enhancements
+- 📊 Student progress dashboards
+- 🎯 Adaptive difficulty question generation
+- 🧩 Quiz-based reinforcement
+- 🎙 Voice-based tutoring
+- 📱 Mobile interface
+- 🎓 LMS integration
+
+## 🧪 Evaluation Strategy
+RecallAI supports:
+- User feedback loops
+- Resource improvement over time
+- Strategy effectiveness tracking
+
+This allows continuous learning system improvement.
+
+## 👨‍💻 Author
+Ketan Dnyaneshwar Patil
