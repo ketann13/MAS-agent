@@ -61,6 +61,11 @@ Each learning event is:
 
 This enables RecallAI to remember conceptual mistakes, not just keywords.
 
+## 📸 Screenshots
+![Screenshot 1](screenshots/sc1.png)
+![Screenshot 2](screenshots/sc2.png)
+![Screenshot 3](screenshots/image.png)
+
 ## 🛠️ Tech Stack
 - Frontend: Streamlit
 - Backend: Python
