@@ -1,5 +1,5 @@
 import requests
-from config import GEMINI_API_KEY, GEMINI_MODEL
+from mas_learning_agent.config import GEMINI_API_KEY, GEMINI_MODEL
 
 
 GEMINI_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models"

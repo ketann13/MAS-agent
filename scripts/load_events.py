@@ -1,11 +1,15 @@
 import uuid
 import sys
 import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from embeddings import get_embedding
-from qdrant_db.client import get_qdrant_client
-from config import LEARNING_EVENTS_COLLECTION
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC_ROOT = os.path.join(PROJECT_ROOT, "src")
+if SRC_ROOT not in sys.path:
+    sys.path.insert(0, SRC_ROOT)
+
+from mas_learning_agent.embeddings import get_embedding
+from mas_learning_agent.qdrant_db.client import get_qdrant_client
+from mas_learning_agent.config import LEARNING_EVENTS_COLLECTION
 
 client = get_qdrant_client()
 

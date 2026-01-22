@@ -1,8 +1,8 @@
-from agents.memory_agent import store_event, get_similar_events
-from agents.pattern_agent import detect_weak_concepts
-from agents.retrieval_agent import get_resources_for_concept
-from agents.recommendation_agent import generate_recommendation
-from agents.llm_agent import generate_explanation
+from mas_learning_agent.agents.memory_agent import store_event, get_similar_events
+from mas_learning_agent.agents.pattern_agent import detect_weak_concepts
+from mas_learning_agent.agents.retrieval_agent import get_resources_for_concept
+from mas_learning_agent.agents.recommendation_agent import generate_recommendation
+from mas_learning_agent.agents.llm_agent import generate_explanation
 
 
 def normalize_concept(concept):
@@ -54,7 +54,8 @@ def handle_student_input(text, concept, correct=False):
     advice = generate_recommendation(
         weak_concepts,
         resources,
-        similar_events
+        similar_events,
+        task_type
     )
 
     # ---- LLM TUTOR AGENT ----

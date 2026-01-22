@@ -1,23 +1,23 @@
-# ===== Virtual Environments =====
-venv/
-.env/
-.env.*
-
-# ===== Python Cache =====
+# ===== Python =====
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
+*.pyc
+*.so
+*.egg-info/
+dist/
+build/
 
-# ===== Streamlit Secrets =====
-.streamlit/secrets.toml
+# ===== Virtual Environments =====
+.venv/
+venv/
+ENV/
+env/
 
-# ===== VS Code =====
-.vscode/
-
-# ===== OS Files =====
-.DS_Store
-Thumbs.db
+# ===== Environment / Secrets =====
+.env
+.env.*
 
 # ===== Logs =====
 *.log
@@ -25,7 +25,26 @@ Thumbs.db
 # ===== Jupyter =====
 .ipynb_checkpoints/
 
-# ===== Build / Dist =====
-build/
-dist/
-*.egg-info/
+# ===== IDE / Editor =====
+.vscode/
+.idea/
+.spyderproject
+.spyproject
+
+# ===== OS Files =====
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ===== Streamlit =====
+.streamlit/secrets.toml
+**/.streamlit/.cache/
+
+# ===== Qdrant local data (if used) =====
+qdrant_storage/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+
