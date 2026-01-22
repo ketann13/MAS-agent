@@ -1,6 +1,6 @@
-# MAS Learning Agent
+# RecallAI
 
-Skeleton structure for a multi-agent learning assistant with Qdrant backing. Fill in the placeholders to add real logic.
+RecallAI is an AI-powered personalized tutor with long-term memory. It uses a multi-agent workflow and Qdrant-backed retrieval to improve guidance over time.
 
 ## Layout
 - app/streamlit_app.py: Streamlit entry

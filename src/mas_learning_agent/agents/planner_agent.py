@@ -31,7 +31,7 @@ def handle_student_input(text, concept, correct=False):
     # ---- PATTERN AGENT ----
     weak_concepts = detect_weak_concepts(similar_events, concept) or []
 
-    # ---- TASK ROUTING (MAS ORCHESTRATOR) ----
+    # ---- TASK ROUTING (RecallAI ORCHESTRATOR) ----
     if len(similar_events) >= 3:
         task_type = "remediation"
     elif len(similar_events) == 0:

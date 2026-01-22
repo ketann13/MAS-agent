@@ -1,1 +1,1 @@
-# MAS Learning Agent package
+# RecallAI package

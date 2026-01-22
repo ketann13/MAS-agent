@@ -13,7 +13,7 @@ from mas_learning_agent.agents.retrieval_agent import store_new_resource, store_
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
-    page_title="AI Learning Memory Agent",
+    page_title="RecallAI",
     layout="wide",
     page_icon="🎓"
 )
@@ -34,8 +34,8 @@ with st.sidebar:
     st.markdown("## ⚙️ System Status")
     gemini_set = bool(os.getenv("GEMINI_API_KEY"))
     qdrant_url = os.getenv("QDRANT_URL")
-    st.markdown(f"**Gemini API**: {'✅ Set' if gemini_set else '⚠️ Not set'}")
-    st.markdown(f"**Qdrant URL**: {'✅ Set' if qdrant_url else '⚠️ Not set'}")
+    st.markdown(f"**Gemini API**: {'Set' if gemini_set else '⚠️ Not set'}")
+    st.markdown(f"**Qdrant URL**: {'Set' if qdrant_url else '⚠️ Not set'}")
     st.markdown("---")
     st.markdown("## 💡 Tips")
     st.markdown("- Be specific about the mistake you made")
@@ -43,13 +43,13 @@ with st.sidebar:
 
 st.info("⏳ Initializing AI models... first load can take 20–30 seconds.")
 
-st.markdown('<div class="big-title">🎓 AI Learning Memory Agent</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtext">Multi-Agent Personalized Tutor with Long-Term Memory (Qdrant)</div>', unsafe_allow_html=True)
+st.markdown('<div class="big-title">RecallAI</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtext">AI-powered personalized tutor with long-term memory</div>', unsafe_allow_html=True)
 
 st.markdown("---")
 
 # ---------------- INPUT SECTION ----------------
-st.subheader("📝 Enter Your Learning Issue")
+st.subheader("Enter Your Learning Issue")
 
 col_input, col_preview = st.columns([2, 1], gap="large")
 
@@ -66,7 +66,7 @@ with col_input:
 
     action_col, reset_col = st.columns([1, 1])
     with action_col:
-        submit = st.button("🚀 Get Personalized Help", use_container_width=True)
+        submit = st.button("Get Personalized Help", use_container_width=True)
     with reset_col:
         reset = st.button("♻️ Reset", use_container_width=True)
 
@@ -75,7 +75,7 @@ with col_input:
         st.rerun()
 
 with col_preview:
-    st.markdown("<div class='section-title'>🧾 What you'll get</div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'> What you'll get</div>", unsafe_allow_html=True)
     st.markdown("""
     <div class="card">
       <div class="muted">Personalized output includes</div>
@@ -94,13 +94,13 @@ if submit:
     if text.strip() == "" or concept.strip() == "":
         st.warning("Please enter both doubt and concept.")
     else:
-        with st.spinner("🤖 Multi-Agent System analyzing your learning history..."):
+        with st.spinner("Multi-Agent System analyzing your learning history..."):
             result = handle_student_input(text, concept, correct=False)
 
         st.markdown("---")
 
         tab_summary, tab_analysis, tab_ai, tab_transparency, tab_feedback = st.tabs(
-            ["✅ Summary", "🧠 Analysis", "🤖 AI Tutor", "🔍 Transparency", "💬 Feedback"]
+            ["Summary", "Analysis", "AI Tutor", "Transparency", "Feedback"]
         )
 
         with tab_summary:
@@ -109,7 +109,7 @@ if submit:
             col_b.metric("Similar Mistakes", len(result["similar_mistakes"]))
             col_c.metric("Strategy", result["task_type"].upper())
 
-            st.markdown("### 🧭 Recommendations")
+            st.markdown("### Recommendations")
             if result.get("advice"):
                 for tip in result["advice"]:
                     st.success(tip)
@@ -125,7 +125,7 @@ if submit:
             else:
                 st.success("No weak concepts detected yet.")
 
-            st.markdown("### 🧠 Similar Past Mistakes")
+            st.markdown("### Similar Past Mistakes")
             if result["similar_mistakes"]:
                 for e in result["similar_mistakes"]:
                     st.write("•", e["text"])
@@ -141,11 +141,11 @@ if submit:
 
         # ================= AGENT TRANSPARENCY =================
         with tab_transparency:
-            st.markdown("### 🤖 Agents Involved")
+            st.markdown("### Agents Involved")
             for a in result["agents_used"]:
                 st.write("✅", a)
 
-            st.markdown("### 🧠 Reasoning Based On")
+            st.markdown("###  Reasoning Based On")
             if result["similar_mistakes"]:
                 for e in result["similar_mistakes"]:
                     st.write(f"- Similar past mistake related to **{e['concept']}**")
@@ -154,7 +154,7 @@ if submit:
 
         # ================= FEEDBACK LOOP =================
         with tab_feedback:
-            st.subheader("🧠 Help the System Learn")
+            st.subheader("Help the System Learn")
 
             feedback = st.radio(
                 "Was this recommendation helpful?",
