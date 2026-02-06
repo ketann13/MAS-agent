@@ -3,6 +3,8 @@ from qdrant_client.models import VectorParams, Distance
 from mas_learning_agent.config import (
     LEARNING_EVENTS_COLLECTION,
     LEARNING_RESOURCES_COLLECTION,
+    FEEDBACK_LOGS_COLLECTION,
+    CONCEPT_STATS_COLLECTION,
     EMBEDDING_MODEL_NAME
 )
 from sentence_transformers import SentenceTransformer
@@ -34,3 +36,5 @@ def create_collection(name):
 if __name__ == "__main__":
     create_collection(LEARNING_EVENTS_COLLECTION)
     create_collection(LEARNING_RESOURCES_COLLECTION)
+    create_collection(FEEDBACK_LOGS_COLLECTION)
+    create_collection(CONCEPT_STATS_COLLECTION)

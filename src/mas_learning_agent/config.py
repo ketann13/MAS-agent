@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 
 LEARNING_EVENTS_COLLECTION = "learning_events"
 LEARNING_RESOURCES_COLLECTION = "learning_resources"
+FEEDBACK_LOGS_COLLECTION = "feedback_logs"
+CONCEPT_STATS_COLLECTION = "concept_stats"
 
 EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
 
