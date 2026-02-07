@@ -22,7 +22,7 @@ def normalize_concept(concept):
 
 def handle_student_input(text, concept, correct=False):
 
-    concept = concept.strip().lower()
+    concept = normalize_concept(concept)
 
     # ---- MEMORY AGENT ----
     store_event(text, concept, correct)
@@ -48,6 +48,17 @@ def handle_student_input(text, concept, correct=False):
         if c != concept:
             additional_resources = get_resources_for_concept(c) or []
             resources.extend(additional_resources)
+
+    # De-duplicate resources after merging
+    if resources:
+        seen = set()
+        unique_resources = []
+        for r in resources:
+            text_value = r.get("text")
+            if text_value and text_value not in seen:
+                unique_resources.append(r)
+                seen.add(text_value)
+        resources = unique_resources
 
 
     # ---- RECOMMENDATION AGENT ----
