@@ -21,12 +21,26 @@ st.set_page_config(
 # ---------------- HEADER ----------------
 st.markdown("""
 <style>
-.big-title {font-size:42px; font-weight:800;}
-.subtext {color: #9aa0a6; margin-top:-6px;}
-.card {background-color:#111827; padding:16px; border-radius:12px; margin-bottom:12px; border: 1px solid #1f2937;}
-.pill {display:inline-block; padding:4px 10px; border-radius:999px; background:#111827; border:1px solid #374151; font-size:12px; margin-right:6px;}
-.muted {color:#9aa0a6;}
+:root {
+    --bg: #0b1220;
+    --card: #0f172a;
+    --card-2: #111827;
+    --border: #1f2937;
+    --text-muted: #94a3b8;
+    --accent: #7c3aed;
+}
+.big-title {font-size:44px; font-weight:900; letter-spacing:-0.02em;}
+.subtext {color: var(--text-muted); margin-top:-6px;}
+.card {background-color:var(--card); padding:16px; border-radius:14px; margin-bottom:12px; border: 1px solid var(--border);}
+.card-glow {background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(56,189,248,0.08)); border: 1px solid rgba(124,58,237,0.3);} 
+.pill {display:inline-block; padding:4px 10px; border-radius:999px; background:var(--card-2); border:1px solid #334155; font-size:12px; margin-right:6px; color:#e2e8f0;}
+.muted {color: var(--text-muted);}
 .section-title {font-size:20px; font-weight:700; margin: 8px 0 4px 0;}
+.kpi {background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px; text-align:center;}
+.kpi-label {color: var(--text-muted); font-size:12px;}
+.kpi-value {font-size:22px; font-weight:800;}
+.badge {display:inline-block; padding:2px 8px; border-radius:6px; background:#1f2937; border:1px solid #334155; font-size:11px; color:#e2e8f0; margin-left:6px;}
+.resource {padding:12px; border:1px solid var(--border); border-radius:10px; margin-bottom:10px; background:var(--card-2);} 
 </style>
 """, unsafe_allow_html=True)
 
@@ -40,6 +54,10 @@ with st.sidebar:
     st.markdown("## 💡 Tips")
     st.markdown("- Be specific about the mistake you made")
     st.markdown("- Add the core concept (e.g., recursion, TCP, DP)")
+    st.markdown("- Keep it short and concrete")
+    st.markdown("---")
+    st.markdown("## 🔒 Privacy")
+    st.caption("Your input is stored as learning events to improve future recommendations.")
 
 st.info("⏳ Initializing AI models... first load can take 20–30 seconds.")
 
@@ -75,19 +93,19 @@ with col_input:
         st.rerun()
 
 with col_preview:
-    st.markdown("<div class='section-title'> What you'll get</div>", unsafe_allow_html=True)
-    st.markdown("""
-    <div class="card">
-      <div class="muted">Personalized output includes</div>
-      <div style="margin-top:8px;">
-        <span class="pill">Weak concepts</span>
-        <span class="pill">Study strategy</span>
-        <span class="pill">Similar mistakes</span>
-        <span class="pill">Resources</span>
-        <span class="pill">AI tutor</span>
-      </div>
-    </div>
-    """, unsafe_allow_html=True)
+        st.markdown("<div class='section-title'> What you'll get</div>", unsafe_allow_html=True)
+        st.markdown("""
+        <div class="card card-glow">
+            <div class="muted">Personalized output includes</div>
+            <div style="margin-top:8px;">
+                <span class="pill">Weak concepts</span>
+                <span class="pill">Study strategy</span>
+                <span class="pill">Similar mistakes</span>
+                <span class="pill">Resources</span>
+                <span class="pill">AI tutor</span>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
 # ---------------- MAIN PIPELINE ----------------
 if submit:
@@ -105,9 +123,12 @@ if submit:
 
         with tab_summary:
             col_a, col_b, col_c = st.columns(3)
-            col_a.metric("Weak Concepts", len(result["weak_concepts"]))
-            col_b.metric("Similar Mistakes", len(result["similar_mistakes"]))
-            col_c.metric("Strategy", result["task_type"].upper())
+            with col_a:
+                st.markdown("<div class='kpi'><div class='kpi-label'>Weak Concepts</div><div class='kpi-value'>{}</div></div>".format(len(result["weak_concepts"])), unsafe_allow_html=True)
+            with col_b:
+                st.markdown("<div class='kpi'><div class='kpi-label'>Similar Mistakes</div><div class='kpi-value'>{}</div></div>".format(len(result["similar_mistakes"])), unsafe_allow_html=True)
+            with col_c:
+                st.markdown("<div class='kpi'><div class='kpi-label'>Strategy</div><div class='kpi-value'>{}</div></div>".format(result["task_type"].upper()), unsafe_allow_html=True)
 
             st.markdown("### Recommendations")
             if result.get("advice"):
@@ -127,10 +148,28 @@ if submit:
 
             st.markdown("### Similar Past Mistakes")
             if result["similar_mistakes"]:
-                for e in result["similar_mistakes"]:
-                    st.write("•", e["text"])
+                with st.expander("View similar mistakes"):
+                    for e in result["similar_mistakes"]:
+                        st.write("•", e["text"])
             else:
                 st.write("No similar mistakes found.")
+
+            st.markdown("### 📚 Recommended Resources")
+            if result.get("resources"):
+                for r in result["resources"]:
+                    text_value = r.get("text", "")
+                    concept_value = r.get("concept", "")
+                    topic_value = r.get("topic", "")
+                    st.markdown(
+                        f"<div class='resource'><div>{text_value}</div>"
+                        f"<div class='muted' style='margin-top:6px;'>"
+                        f"{concept_value}"
+                        f"<span class='badge'>{topic_value}</span>"
+                        f"</div></div>",
+                        unsafe_allow_html=True
+                    )
+            else:
+                st.info("No resources found yet. Add more to the knowledge base.")
 
         # ================= AI TUTOR =================
         with tab_ai:
