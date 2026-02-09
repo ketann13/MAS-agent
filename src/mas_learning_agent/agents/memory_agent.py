@@ -12,6 +12,8 @@ def store_event(text, concept, correct):
         print("⚠ Skipping memory store (no Qdrant)")
         return
 
+    concept = (concept or "").strip().lower()
+
     try:
         point = PointStruct(
             id=str(uuid.uuid4()),
@@ -46,6 +48,8 @@ def store_concept_stat(concept):
     client = get_qdrant_client()
     if client is None:
         return
+
+    concept = (concept or "").strip().lower()
     
     point = PointStruct(
         id=str(uuid.uuid4()),
