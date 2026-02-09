@@ -67,6 +67,25 @@ st.markdown('<div class="subtext">AI-powered personalized tutor with long-term m
 st.markdown("---")
 
 # ---------------- INPUT SECTION ----------------
+
+def _sanitize_input(value: str) -> str:
+    return " ".join((value or "").strip().split())
+
+
+def _is_low_signal_text(value: str) -> bool:
+    if len(value) < 8:
+        return True
+    if len(set(value)) <= 3:
+        return True
+    return False
+
+
+def _is_low_signal_concept(value: str) -> bool:
+    if len(value) < 3:
+        return True
+    if len(set(value)) <= 2:
+        return True
+    return False
 st.subheader("Enter Your Learning Issue")
 
 col_input, col_preview = st.columns([2, 1], gap="large")
@@ -109,8 +128,15 @@ with col_preview:
 
 # ---------------- MAIN PIPELINE ----------------
 if submit:
-    if text.strip() == "" or concept.strip() == "":
+    text = _sanitize_input(text)
+    concept = _sanitize_input(concept)
+
+    if text == "" or concept == "":
         st.warning("Please enter both doubt and concept.")
+    elif _is_low_signal_text(text):
+        st.warning("Please add more detail to your doubt (at least 8 characters and meaningful content).")
+    elif _is_low_signal_concept(concept):
+        st.warning("Please enter a clearer concept (at least 3 characters).")
     else:
         with st.spinner("Multi-Agent System analyzing your learning history..."):
             result = handle_student_input(text, concept, correct=False)
